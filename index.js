@@ -11,6 +11,21 @@ var mongoose = require('mongoose');
 //Reference route files to use - And make sure to add to below code
 // var appRoutes = require('./routes/app');
 var blogRoutes = require('./routes/blogs');
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+
 
 
 
@@ -27,6 +42,8 @@ mongoose.connect('main-user:omar1993@ds145263.mlab.com:45263/reflections_blog');
 // app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.set('views', path.join(__dirname, 'views'));//view folder
+app.set('view engine', 'hbs');//Templating engine (HandleBars)
 // app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));//This is only accessible folder, serving application
 //Need for Cross domain requests (CORS)
@@ -44,6 +61,5 @@ app.use('/blogs', blogRoutes);
 app.use(function (req, res, next) {
     return res.render('index');
 });
-
 
 module.exports = app;
