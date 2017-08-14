@@ -33,7 +33,7 @@ mongoose.connect('main-user:omar1993@ds145263.mlab.com:45263/reflections_blog');
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));//view folder
-// app.set('view engine', 'hbs');//Templating engine (HandleBars)
+app.set('view engine', 'hbs');//Templating engine (HandleBars)
 
 
 app.use(bodyParser.json());
