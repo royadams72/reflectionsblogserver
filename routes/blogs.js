@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.post('/addblog', function (req, res, next) {
+router.post('/', function (req, res, next) {
   //Create an new instance of User object
     // var user = new User({firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10)});
     Blog.save()
