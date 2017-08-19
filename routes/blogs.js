@@ -26,18 +26,7 @@ router.get('/', function (req, res, next) {
 router.post('/addblog', function (req, res, next) {
   //Create an new instance of User object
     // var user = new User({firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10)});
-    Blog.save(function(err, result){
-          if(err){
-            return res.status(500).json({
-              title: 'An error has occured',
-              error: err
-            })
-          }
-          res.status(201).json({
-            message: 'Everything ok',
-            obj: result
-          })
-    })
+    Blog.save()
 });
 
 
