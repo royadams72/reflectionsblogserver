@@ -26,7 +26,23 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
   //Create an new instance of User object
     // var user = new User({firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10)});
-    Blog.save()
+    var blog = new Blog({
+      title: req.body.title,
+      script: req.body.script,
+       vidUrl:req.body.vidUrl
+    })
+    blog.save(function(err, result){
+          if(err){
+            return res.status(500).json({
+              title: 'An error has occured',
+              error: err
+            })
+          }
+          res.status(201).json({
+            message: 'Everything ok',
+            obj: result
+          })
+    })
 });
 
 
