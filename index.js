@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
 //Reference route files to use - And make sure to add to below code
 // var appRoutes = require('./routes/app');
 var blogRoutes = require('./routes/blogs');
+
 var port = process.env.PORT || '3000';
 var http = require('http');
 app.set('port', port);
