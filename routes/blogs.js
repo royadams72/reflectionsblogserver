@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/:id', function (req, res, next) {
-  var id =
+console.log(req.body.id)
   Blog.findById(id, function (err, user) {
 
 
