@@ -8,12 +8,14 @@ import { BlogsComponent } from './components/blogs/blogs.component';
 import { BlogsService } from './services/blogs.service';
 import { AddblogComponent } from './components/addblog/addblog.component';
 import { NavComponent } from './components/nav/nav.component';
+import { BlogpageComponent } from './components/blogpage/blogpage.component';
 @NgModule({
   declarations: [
     AppComponent,
     BlogsComponent,
     AddblogComponent,
-    NavComponent
+    NavComponent,
+    BlogpageComponent
   ],
   imports: [
     BrowserModule,
