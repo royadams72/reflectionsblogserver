@@ -20,8 +20,8 @@ router.get('/', function (req, res, next) {
         message: 'Success',
         blogs: response
       })
-    });
-});
+    })
+})
 
 router.get('/:id', function (req, res, next) {
 
@@ -40,7 +40,7 @@ var id = req.params.id;
     })
   })
 
-});
+})
 
 
 router.post('/', function (req, res, next) {
@@ -64,7 +64,7 @@ router.post('/', function (req, res, next) {
             obj: result
           })
     })
-});
+})
 
 
 router.post('/update/:id', function (req, res, next) {
