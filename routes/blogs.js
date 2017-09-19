@@ -77,6 +77,7 @@ router.patch('/', function (req, res, next) {
           script: req.body.script,
           vidUrl:req.body.vidUrl
     })
+    console.log(blog);
     Blog.findById(id, function (err, response) {
       if(err){
         return res.status(500).json({
