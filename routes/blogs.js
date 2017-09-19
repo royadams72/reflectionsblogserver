@@ -71,15 +71,15 @@ router.patch('/', function (req, res, next) {
   //Create an new instance of User object
     // var user = new User({firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10)});
     var blog = req.params.blog
-    var id = blog._id
+    // var id = blog._id
 
-    Blog.findById(id, function (err, response) {
-      if(err){
-        return res.status(500).json({
-          title: 'An error has occured',
-          error: err
-        })
-      }
+    // Blog.findById(id, function (err, response) {
+    //   if(err){
+    //     return res.status(500).json({
+    //       title: 'An error has occured',
+    //       error: err
+    //     })
+    //   }
     // var blog = new Blog({
     //       _id: id,
     //       title: req.body.title,
