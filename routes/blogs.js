@@ -86,7 +86,7 @@ router.patch('/', function (req, res, next) {
     //       script: req.body.script,
     //       vidUrl:req.body.vidUrl
     // })
-    console.log(blog);
+    console.log(req.params);
 
 
   //
