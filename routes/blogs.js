@@ -67,7 +67,7 @@ router.post('/', function (req, res, next) {
 })
 
 
-router.post('/update/:id', function (req, res, next) {
+router.patch('/update/:id', function (req, res, next) {
   //Create an new instance of User object
     // var user = new User({firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10)});
     var blog = new Blog({
@@ -82,6 +82,7 @@ router.post('/update/:id', function (req, res, next) {
           error: err
         })
       }
+
     blog.save(function(err, result){
           if(err){
             return res.status(500).json({
@@ -94,5 +95,6 @@ router.post('/update/:id', function (req, res, next) {
             obj: result
           })
     })
+  })
 })
 module.exports = router;
