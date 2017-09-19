@@ -72,13 +72,6 @@ router.patch('/', function (req, res, next) {
     // var user = new User({firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10)});
 
     var id = req.params.id
-    var blog = new Blog({
-          _id: id,
-          title: req.body.title,
-          script: req.body.script,
-          vidUrl:req.body.vidUrl
-    })
-    console.log(blog);
     Blog.findById(id, function (err, response) {
       if(err){
         return res.status(500).json({
@@ -86,6 +79,15 @@ router.patch('/', function (req, res, next) {
           error: err
         })
       }
+    var blog = new Blog({
+          _id: id,
+          title: req.body.title,
+          script: req.body.script,
+          vidUrl:req.body.vidUrl
+    })
+    console.log(blog);
+
+
 
     blog.save(function(err, result){
           if(err){
