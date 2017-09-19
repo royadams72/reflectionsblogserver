@@ -67,13 +67,15 @@ router.post('/', function (req, res, next) {
 })
 
 
-router.patch('/update/:id', function (req, res, next) {
+router.patch('/', function (req, res, next) {
   //Create an new instance of User object
     // var user = new User({firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10)});
+
+    var id = req.params.id
     var blog = new Blog({
-      title: req.body.title,
-      script: req.body.script,
-       vidUrl:req.body.vidUrl
+          title: req.body.title,
+          script: req.body.script,
+          vidUrl:req.body.vidUrl
     })
     Blog.findById(id, function (err, response) {
       if(err){
