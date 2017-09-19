@@ -5,7 +5,6 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
-  _id: {type: String, required:false},
   title: {type: String, required:true},
   script: {type: String, required:true},
   vidUrl: {type: String, required:true}
