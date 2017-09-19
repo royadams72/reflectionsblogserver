@@ -94,5 +94,5 @@ router.post('/update/:id', function (req, res, next) {
             obj: result
           })
     })
-});
+})
 module.exports = router;
