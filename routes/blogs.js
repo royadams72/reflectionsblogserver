@@ -73,6 +73,7 @@ router.patch('/', function (req, res, next) {
 
     var id = req.params.id
     var blog = new Blog({
+          _id: id,
           title: req.body.title,
           script: req.body.script,
           vidUrl:req.body.vidUrl
