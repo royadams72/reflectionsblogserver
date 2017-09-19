@@ -89,19 +89,19 @@ router.patch('/', function (req, res, next) {
     console.log(blog);
 
 
-
-    blog.save(function(err, result){
-          if(err){
-            return res.status(500).json({
-              title: 'An error has occured',
-              error: err
-            })
-          }
-          res.status(201).json({
-            message: 'Everything ok',
-            obj: result
-          })
-    })
-  })
+  //
+  //   blog.save(function(err, result){
+  //         if(err){
+  //           return res.status(500).json({
+  //             title: 'An error has occured',
+  //             error: err
+  //           })
+  //         }
+  //         res.status(201).json({
+  //           message: 'Everything ok',
+  //           obj: result
+  //         })
+  //   })
+  // })
 })
 module.exports = router;
