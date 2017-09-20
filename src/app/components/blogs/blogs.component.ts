@@ -8,14 +8,14 @@ import { Blog } from '../../models/blog';
   styleUrls: ['./blogs.component.css']
 })
 export class BlogsComponent implements OnInit {
-  blogs:Blog[];
+  blogs:any;
   constructor(private  blogsService: BlogsService) { }
 
   ngOnInit() {
     this.blogsService.getBlogs()
     .subscribe((res)=>{
       this.blogs = res;
-      console.log(res)
+      // console.log(res)
     })
   }
 

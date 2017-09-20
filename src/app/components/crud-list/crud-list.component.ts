@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogsService } from '../../services/blogs.service';
-import { CrudService } from '../../services/crud.service';
 import { Blog } from '../../models/blog';
 @Component({
   selector: 'app-crud-list',
@@ -10,20 +9,19 @@ import { Blog } from '../../models/blog';
 export class CrudListComponent implements OnInit {
 
   blogs:Blog[];
-  constructor(private  blogsService: BlogsService,
-              private crudService: CrudService) { }
+  constructor(private  blogsService: BlogsService) { }
 
   ngOnInit() {
     this.blogsService.getBlogs()
     .subscribe((res)=>{
       this.blogs = res;
-      // console.log(res)
+      console.log(res)
     })
 
   }
   populateForm(id){
     this.blogs.map((blog:Blog)=>{
-     blog._id === id ? this.crudService.populateForm.next(blog) : blog._id = blog._id;
+     blog._id === id ? this.blogsService.populateForm.next(blog) : blog._id = blog._id;
 
    })
   }
