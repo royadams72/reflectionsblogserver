@@ -4,22 +4,15 @@
 .main-container{
   margin-top: 100px;
 }
-/*.bg-cover{
-width: 100%;
-min-height: 300px;
-background: no-repeat center;
-background-size: cover;
-outline: 1px solid red;
-}*/
-/*.crop {
-    width: 90%;
-    min-height: 300px;
-    overflow: hidden;
-}*/
-.crop {
-    width: 90%;
-    min-height: 200px;
-    overflow: hidden;
-    background-color: #ccc
+.mgt-5{
+  margin-top: 5px!important;
 }
-/*.bg-cover { object-fit: cover }*/
+.mgt-10{
+  margin-top: 10px!important;
+}
+.mgb-5{
+  margin-bottom: 5px!important;
+}
+.mgb-10{
+  margin-bottom: 10px!important;
+}

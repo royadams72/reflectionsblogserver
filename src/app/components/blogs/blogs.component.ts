@@ -9,21 +9,13 @@ import { Blog } from '../../models/blog';
 })
 export class BlogsComponent implements OnInit {
   blogs:Blog[];
-  constructor(private  blogsService: BlogsService, private sanitizer: DomSanitizer) { }
+  constructor(private  blogsService: BlogsService) { }
 
   ngOnInit() {
     this.blogsService.getBlogs()
     .subscribe((res)=>{
-
-
-      // res.map(items=>{
-      //   let url = "https://img.youtube.com/vi/"+ items.vidUrl + "/0.jpg";
-      //
-      // items.vidUrl =  this.sanitizer.bypassSecurityTrustStyle("url("+url+")")
-      //
-      // })
-this.blogs = res;
-console.log(res)
+      this.blogs = res;
+      console.log(res)
     })
   }
 

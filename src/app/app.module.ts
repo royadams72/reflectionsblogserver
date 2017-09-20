@@ -6,16 +6,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
 import { BlogsService } from './services/blogs.service';
-import { AddblogComponent } from './components/addblog/addblog.component';
+import { CrudService } from './services/crud.service';
 import { NavComponent } from './components/nav/nav.component';
 import { BlogpageComponent } from './components/blogpage/blogpage.component';
+import { CrudBlogComponent } from './components/crud-blog/crud-blog.component';
+import { BlogFormComponent } from './components/blogform/blogform.component';
+import { CrudListComponent } from './components/crud-list/crud-list.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     BlogsComponent,
-    AddblogComponent,
     NavComponent,
-    BlogpageComponent
+    BlogpageComponent,
+    CrudBlogComponent,
+    BlogFormComponent,
+    CrudListComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +31,7 @@ import { BlogpageComponent } from './components/blogpage/blogpage.component';
     ReactiveFormsModule,
     routing
   ],
-  providers: [BlogsService],
+  providers: [BlogsService, CrudService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

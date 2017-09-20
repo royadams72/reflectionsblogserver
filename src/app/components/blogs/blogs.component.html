@@ -4,30 +4,19 @@
       <!-- <div class="row" [@activeState]="isActive"> *ngIf="!loading"-->
         <div class="row" >
         <div class="col-sm-6 col-md-4 card" *ngFor="let blog of blogs">
-
           <!-- <div class="card" style="width: 20rem;">   [ngStyle]="blog?.vidUrl" -->
-
           <div class="crop" >
-            <!-- <div class="bg-cover"  [style.background-image]="blog?.vidUrl" ></div> -->
-            <img class="bg-cover" src="http://img.youtube.com/vi/{{blog?.vidUrl}}/0.jpg" alt="" >
-      </div>
-
+            <a [routerLink]="['/blog', blog._id]">
+              <img class="bg-cover" src="http://img.youtube.com/vi/{{blog?.vidUrl}}/0.jpg" alt="" >
+            </a>
+          </div>
 
             <div class="card-block">
               <h4 class="card-title">{{blog.title}}</h4>
-              <p class="card-text">Some quick example text to build on the card title and make
-                up the bulk of the card's content.</p>
+              <p class="card-text">{{blog.script}}</p>
               <a [routerLink]="['/blog', blog._id]">More..</a>
             </div>
-          <!-- </div> -->
 
-
-
-
-
-          <!-- <a [routerLink]="['/comic-details', item.id]">
-        <img *ngIf="item?.images[0]?.path" src="/assets/defaultImage.png" [lazyLoad]="item?.images[0]?.path" class="img-fluid" alt="">
-          </a> -->
         </div>
     </div>
 </div>
