@@ -7,8 +7,9 @@ import { Blog } from '../models/blog';
 @Injectable()
 export class BlogsService {
   blogsURL:string;
- // blogsURL:string = 'https://reflections-blog.herokuapp.com/'
+ //
   constructor(private _http: HttpClient) {
+    // this.blogsURL = 'https://reflections-blog.herokuapp.com/'
     this.blogsURL = 'http://localhost:3000/'
    }
     getBlogs(){

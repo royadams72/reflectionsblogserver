@@ -9,8 +9,8 @@ export class CrudService {
   public populateForm;
   private blogsURL:string;
   constructor(private _http: HttpClient) {
-    this.blogsURL = 'http://localhost:3000/'
-    //  this.blogsURL = 'https://reflections-blog.herokuapp.com/'
+    // this.blogsURL = 'http://localhost:3000/'
+     this.blogsURL = 'https://reflections-blog.herokuapp.com/'
      this.populateForm = new Subject<Blog>();
   }
 
