@@ -23,7 +23,7 @@ export class BlogFormComponent implements OnInit {
    }
   ngOnInit() {
     this.initForm();
-    this.crudService.populateForm
+    this.blogsService.populateForm
     .subscribe((blog:Blog)=>{
       if(blog){
         this.state = 'UPDATING';
