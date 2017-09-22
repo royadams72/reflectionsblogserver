@@ -29,7 +29,7 @@ export class BlogsService {
             return this._http.get(this.blogsURL+'blogs')
                    .map((result: Response ) => {
                     this.blogs = result['blogs'];
-                    return this.blogs;
+                    return result['blogs'];
                    })
 
     }
@@ -41,13 +41,29 @@ export class BlogsService {
                })
     }
 
-    updateBlog(blog:Blog){
+    updateBlog(blog:Blog, index:number){
       return this._http.patch(this.blogsURL+'blogs', blog)
              .map((res: Response ) => {
+               if(res){
+                 let blog = res["blog"];
+                  this.blogs.splice(index, 1, blog);
 
-              this.blogs = res["blog"];
+
+              console.log(this.blogs)
+
               return this.blogs;
+              }
              })
+    }
+
+    addBlog(blog:Blog){
+      return this._http.post(this.blogsURL+'blogs', blog)
+             .map((res: Response ) => {
+              const result = res;
+              //The result will have an id created by mongodb
+                // console.log("result from post: "+res);
+              return result;
+             })//map automatic
     }
 
 }

@@ -14,8 +14,9 @@ export class BlogFormComponent implements OnInit {
   private formValid:boolean;
   public success:boolean;
   public _id:String;
-  constructor(private blogsService: BlogsService,
-              private crudService: CrudService) {
+  private blog:Blog;
+  private index:number;
+  constructor(private blogsService: BlogsService) {
                   this.state = 'CREATING';
                   this.formValid = false;
                   this.success = false;
@@ -24,14 +25,17 @@ export class BlogFormComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.blogsService.populateForm
-    .subscribe((blog:Blog)=>{
-      if(blog){
+    .subscribe((data)=>{
+      if(data){
+        this.blog = data.blog;
+        this.index = data.index;
+        // console.log(data)
         this.state = 'UPDATING';
-        this._id = blog._id;
+        this._id = this.blog._id;
         this.crudBlogForm.setValue({
-          title: blog.title,
-          vidUrl: blog.vidUrl,
-          script: blog.script
+          title: this.blog.title,
+          vidUrl: this.blog.vidUrl,
+          script: this.blog.script
           });
       }
         // console.log(blog)
@@ -57,7 +61,7 @@ export class BlogFormComponent implements OnInit {
     action === 'CREATING' ? vidID = null : vidID = this._id;
     let blog:Blog = {_id:vidID, title:title.value, vidUrl:vidUrl.value, script:script.value}
     if(action === 'CREATING'){
-      this.crudService.addBlog(blog)
+      this.blogsService.addBlog(blog)
         .subscribe(data=>{
           if(data){
             this.success = true;
@@ -65,7 +69,7 @@ export class BlogFormComponent implements OnInit {
         })
     }else if(action === 'UPDATING'){
       console.log(blog)
-      this.crudService.updateBlog(blog)
+      this.blogsService.updateBlog(this.blog, this.index)
         .subscribe(data=>{
           if(data){
             this.success = true;

@@ -1,6 +1,6 @@
 
-<div class="col-md-12"  *ngFor="let blog of blogs | async">
-    <h6 style='display:inline-block' class="col-md-6 col-xs-6"><a [routerLink]="" (click)="populateForm(blog._id)">{{(blog )?.title}}</a></h6>
+<div class="col-md-12"  *ngFor="let blog of blogs | async; let i = index">
+    <h6 style='display:inline-block' class="col-md-6 col-xs-6"><a [routerLink]="" (click)="populateForm(blog._id, i)">{{(blog )?.title}}</a></h6>
           <a [routerLink]="" (click)="populateForm(blog._id)">
             <img class="bg-cover col-md-4 col-xs-4" src="http://img.youtube.com/vi/{{blog?.vidUrl}}/0.jpg" alt="" >
           </a>

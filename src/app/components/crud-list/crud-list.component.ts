@@ -28,11 +28,11 @@ export class CrudListComponent implements OnInit {
 // this.blogsService.populateList.subscribe()
 
   }
-  populateForm(id){
+  populateForm(id, index){
     let blogs = this.blogsService.returnBlogs()
-    console.log(blogs)
+    // console.log(index)
     blogs.map((blog:Blog)=>{
-     blog._id === id ? this.blogsService.populateForm.next(blog) : blog._id = blog._id;
+     blog._id === id ? this.blogsService.populateForm.next({blog:blog, index:index}) : blog._id = blog._id;
 
    })
   }

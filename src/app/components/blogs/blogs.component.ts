@@ -20,7 +20,7 @@ export class BlogsComponent implements OnInit {
     this.blogsService.populateList
           .subscribe((res)=>{
             this.blogs = res;
-            console.log(res)
+            // console.log(res)
           })
   }
 
