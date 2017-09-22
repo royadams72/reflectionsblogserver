@@ -21,15 +21,16 @@ export class BlogsService {
     this.populateForm = new Subject<Blog>();
    }
 
+
+   returnBlogs(){
+     return this.blogs;
+   }
    getBlogs(){
             return this._http.get(this.blogsURL+'blogs')
-                   .do((blogs)=>this.populateList.next(blogs))
                    .map((result: Response ) => {
                     this.blogs = result['blogs'];
                     return this.blogs;
                    })
-
-                  //  .switchMap((blogs)=>this.populateList.next(blogs).asObservable())
 
     }
     getBlog(id){
@@ -43,9 +44,9 @@ export class BlogsService {
     updateBlog(blog:Blog){
       return this._http.patch(this.blogsURL+'blogs', blog)
              .map((res: Response ) => {
-               console.log(blog)
-              const result = res;
-              return result;
+
+              this.blogs = res["blog"];
+              return this.blogs;
              })
     }
 

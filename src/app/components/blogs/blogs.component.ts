@@ -12,11 +12,16 @@ export class BlogsComponent implements OnInit {
   constructor(private  blogsService: BlogsService) { }
 
   ngOnInit() {
-    this.blogsService.getBlogs()
-    .subscribe((res)=>{
-      this.blogs = res;
-      // console.log(res)
-    })
+    // this.blogsService.getBlogs()
+    // .subscribe((res)=>{
+    //   this.blogs = res;
+    //   // console.log(res)
+    // })
+    this.blogsService.populateList
+          .subscribe((res)=>{
+            this.blogs = res;
+            console.log(res)
+          })
   }
 
 }
