@@ -14,28 +14,27 @@ export class BlogFormComponent implements OnInit {
   private formValid:boolean;
   public success:boolean;
   public _id:String;
-  private blog:Blog;
+  // private blog:Blog;
   private index:number;
   constructor(private blogsService: BlogsService) {
                   this.state = 'CREATING';
                   this.formValid = false;
                   this.success = false;
-                  this._id = '';
+                  // this._id = '';
    }
   ngOnInit() {
     this.initForm();
     this.blogsService.populateForm
     .subscribe((data)=>{
       if(data){
-        this.blog = data.blog;
-        this.index = data.index;
-        // console.log(data)
         this.state = 'UPDATING';
-        this._id = this.blog._id;
+        let blog:Blog = data.blog;
         this.crudBlogForm.setValue({
-          title: this.blog.title,
-          vidUrl: this.blog.vidUrl,
-          script: this.blog.script
+          title: blog.title,
+          vidUrl: blog.vidUrl,
+          script: blog.script,
+          _id: blog._id,
+          index: data.index
           });
       }
         // console.log(blog)
@@ -47,7 +46,9 @@ export class BlogFormComponent implements OnInit {
         this.crudBlogForm = new FormGroup({
               'title': new FormControl(null, [Validators.required, Validators.minLength(1)]),
               'vidUrl': new FormControl(null,Validators.compose([Validators.required, Validators.minLength(1)])),
-              'script': new FormControl(null, [Validators.required, Validators.minLength(1)])
+              'script': new FormControl(null, [Validators.required, Validators.minLength(1)]),
+              '_id': new FormControl(null),
+              'index': new FormControl(null)
             });
         // this.addItemFields();
   }
@@ -57,9 +58,11 @@ export class BlogFormComponent implements OnInit {
     let title = form.get('title');
     let vidUrl = form.get('vidUrl');
     let script = form.get('script');
-    let vidID;
-    action === 'CREATING' ? vidID = null : vidID = this._id;
-    let blog:Blog = {_id:vidID, title:title.value, vidUrl:vidUrl.value, script:script.value}
+    let _id = form.get('_id');
+    let index = form.get('index').value;
+
+    // action === 'CREATING' ? vidID = null : vidID = this._id;
+    let blog:Blog = {_id:_id.value, title:title.value, vidUrl:vidUrl.value, script:script.value}
     if(action === 'CREATING'){
       this.blogsService.addBlog(blog)
         .subscribe(data=>{
@@ -68,8 +71,8 @@ export class BlogFormComponent implements OnInit {
           }
         })
     }else if(action === 'UPDATING'){
-      console.log(blog)
-      this.blogsService.updateBlog(this.blog, this.index)
+      // console.log(blog)
+      this.blogsService.updateBlog(blog, index)
         .subscribe(data=>{
           if(data){
             this.success = true;

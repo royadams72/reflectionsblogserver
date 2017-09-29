@@ -13,19 +13,7 @@ export class CrudListComponent implements OnInit {
   constructor(private blogsService: BlogsService) { }
 
   ngOnInit() {
-    this.blogs = this.blogsService.getBlogs()
-    // .subscribe((res)=>{
-    //   this.blogs = res;
-    //   console.log(res)
-    // })
-
-  // this.blogsService.populateList
-  //       .subscribe((res)=>{
-  //         this.blogs = res;
-  //         console.log(res)
-  //       })
-
-// this.blogsService.populateList.subscribe()
+    this.blogs = this.blogsService.getBlogs();
 
   }
   populateForm(id, index){

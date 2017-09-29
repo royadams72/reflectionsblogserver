@@ -21,7 +21,8 @@
                             <div *ngIf="!crudBlogForm.get('script').valid && crudBlogForm.get('script').touched"
                             class="alert alert-danger">Please enter your the script for the video</div>
                         </div>
-
+                        <input formControlName="_id" type="hidden"  id="_id">
+                        <input formControlName="index" type="hidden"  id="index">
 
                     <br>
                     <div id="success"></div>
