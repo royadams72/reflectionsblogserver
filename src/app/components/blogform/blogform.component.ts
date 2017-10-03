@@ -13,6 +13,7 @@ export class BlogFormComponent implements OnInit {
   public crudBlogForm:FormGroup;
   private formValid:boolean;
   public success:boolean;
+  private successMsg:String;
   public _id:String;
   // private blog:Blog;
   private index:number;
@@ -68,6 +69,7 @@ export class BlogFormComponent implements OnInit {
         .subscribe(data=>{
           if(data){
             this.success = true;
+            this.successMsg = "Your Blog has been uploaded";
           }
         })
     }else if(action === 'UPDATING'){
@@ -76,11 +78,20 @@ export class BlogFormComponent implements OnInit {
         .subscribe(data=>{
           if(data){
             this.success = true;
+            this.successMsg = "Your Blog has been updated";
           }
         })
     }else{
-
+      this.blogsService.deleteBlog(blog)
+        .subscribe(data=>{
+          if(data){
+            this.success = true;
+            this.successMsg = "Your Blog has been deleted";
+          }
+        })
     }
+    form.reset();
+    this.state = 'CREATING';
   }
   ngOnDestroy(){
     // this.blogsService.addBlog.unsubscrbe();

@@ -1,14 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import{ReactiveFormsModule  } from '@angular/forms';
 import { BlogFormComponent } from './blogform.component';
-
+import { BlogsService } from '../../services/blogs.service';
+import { HttpClientModule } from '@angular/common/http';
 describe('BlogFormComponent', () => {
   let component: BlogFormComponent;
   let fixture: ComponentFixture<BlogFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlogFormComponent ]
+      declarations: [ BlogFormComponent ],
+      imports: [ReactiveFormsModule, HttpClientModule],
+      providers:[BlogsService]
     })
     .compileComponents();
   }));

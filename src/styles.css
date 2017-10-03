@@ -16,3 +16,6 @@
 .mgb-10{
   margin-bottom: 10px!important;
 }
+.blog-thumb{
+  cursor: pointer;
+}
