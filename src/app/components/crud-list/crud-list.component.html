@@ -1,6 +1,9 @@
 
+<div class="yesMySeletca" >
+
+</div>
 <div class="col-md-12 blog-thumb" (click)="populateForm(blog._id, i)" *ngFor="let blog of blogs | async; let i = index">
-    <h6 style='display:inline-block' class="col-md-6 col-xs-6">{{(blog )?.title}}</h6>
+    <h6 style='display:inline-block' class="col-md-6 col-xs-6">{{(blog)?.title}}</h6>
 
             <img class="bg-cover col-md-4 col-xs-4" src="http://img.youtube.com/vi/{{blog?.vidUrl}}/0.jpg" alt="" >
 

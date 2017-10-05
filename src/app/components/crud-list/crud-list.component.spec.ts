@@ -3,10 +3,14 @@ import { By } from '@angular/platform-browser';
 import { CrudListComponent } from './crud-list.component';
 import { BlogsService } from '../../services/blogs.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Observable } from "rxjs";
+import 'rxjs/add/observable/from';
+
 describe('CrudListComponent', () => {
   let component: CrudListComponent;
   let fixture: ComponentFixture<CrudListComponent>;
-
+  let blogsTest = Observable.from([[{_id1: 1, title: 'title1', vidUrl: 'XpiipWULkXk'}, {_id1: 2, title: 'title2', vidUrl: 'XpiipWULkXk'}]]);
+  let blogsService:BlogsService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CrudListComponent ],
@@ -19,48 +23,66 @@ describe('CrudListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CrudListComponent);
     component = fixture.componentInstance;
+    spyOn(component, 'populateForm');
+    component.populateForm('xyz', 1);
     fixture.detectChanges();
+
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call function and populate parameters', () => {
-  let domEl = fixture.debugElement.query(By.css('.blog-thumb'));
+  it('HTML should at least contain a title with results from server', () => {
+      component.blogs = blogsTest
+      fixture.detectChanges();
+      // console.log(fixture.nativeElement.querySelector('h6'))
+      let title = fixture.nativeElement.querySelector('h6');
+      expect(title.innerHTML).toContain('title1');
 
-    fixture.whenStable().then(
-        () => {
-    // fixture.detectChanges();
-
-
-      domEl.triggerEventHandler('click', null);
-        // spyOn(component, 'populateForm').and.callThrough()
-          fixture.detectChanges();
-       expect(component.populateForm).toHaveBeenCalledWith();
-    })
+  });
+  it('Should be able to click element and call PopulateForm function with correct parameters', () => {
+    let blogs = [{_id1: 'xyz', title: 'title1', vidUrl: 'XpiipWULkXk'}, {_id1: 'abc', title: 'title2', vidUrl: 'XpiipWULkXk'}]
+        blogsService = TestBed.get(BlogsService)
+        component.blogs = blogsTest
+        fixture.detectChanges();
+        let spy =  spyOn(blogsService, 'returnBlogs').and.returnValue(blogs);
+    // console.log(fixture.nativeElement.querySelector('.blog-thumb'))
+    let domEl = fixture.nativeElement.querySelector('.blog-thumb');
+        domEl.click();
+        expect(component.populateForm).toHaveBeenCalledWith('xyz', 1);
+        // fixture.detectChanges();
+        blogsService.returnBlogs()
+        console.log(blogsService.returnBlogs())
+        expect(blogsService.returnBlogs).toHaveBeenCalled();
   });
 
-  it('Should set items array with values from service', () => {
+  xit('PopulateForm should return current blog array', () => {
+         blogsService = TestBed.get(BlogsService)
+         let blogs = [{_id1: 'xyz', title: 'title1', vidUrl: 'XpiipWULkXk'}, {_id1: 'abc', title: 'title2', vidUrl: 'XpiipWULkXk'}]
+         let id = 'xyz'
+         let index = 1;
 
-  let spy = spyOn(component, 'populateForm').and.callFake(()=>{
-return "gfgfg";
-  })
-  // component.ngOnInit();
-  // do stuff
-  // expect(component.items.length).toBeGreaterThan(0);
-});
+      let spy =  spyOn(blogsService, 'returnBlogs').and.returnValue(blogs);
+      // expect(component.populateForm).toHaveBeenCalled();
+      component.populateForm('xyz', 1)
+        // spyOn(BlogsService, 'returnBlogs');
+        // console.log(spyOn(blogsService, 'returnBlogs'))
 
-  // it('Elements of class jqx-tree-item-li found using getElementsByClassName ', (done) => {
-  //
-  //     this.fixture.whenStable().then(
-  //         () => {
-  //             fixture.detectChanges(); // missed
-  //             var elementArray = fixture.debugElement.query(By.css('.jqx-tree-item-li')); // use fixture instance to
-  //             expect(elementArray.length).toBeGreaterThan(0); //passes without issue :)
-  //             done();
-  //         }
-  //     );
-  // });
+        // let spy = spyOn(blogsService, 'returnBlogs').and.callFake(()=>{
+          // blogs = [{_id1: 'xyz', title: 'title1', vidUrl: 'XpiipWULkXk'}, {_id1: 'abc', title: 'title2', vidUrl: 'XpiipWULkXk'}]
 
+        //   blogs.map((blog)=>{
+         //
+        //    blog._id === id ? this.blogsService.populateForm.next({blog:blog, index:index}) : blog._id = blog._id;
+         //
+        //  })
+        // })
+        fixture.detectChanges();
+          // expect(spy).toHaveBeenCalled();
+        // console.log(blogsService.returnBlogs.calls.any())
+
+
+        // expect(component.populateForm).toHaveBeenCalledWith('xyz', 1);
+  });
 });

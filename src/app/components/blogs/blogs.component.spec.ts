@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CrudListComponent } from '../../components/crud-list/crud-list.component';
 import { Observable } from "rxjs";
+import 'rxjs/add/observable/from'
 class DummyComponent{
 
 }
@@ -37,10 +38,12 @@ describe('BlogsComponent', () => {
   it('Should set blogs variable with values from service', () => {
 
   let spy = spyOn(blogsService, 'getBlogs').and.callFake(()=>{
+    
     return Observable.from([[{id1: 1, title: 'a'}, {id1: 2, title: 'b'}]])
   })
   component.ngOnInit();
   // do stuff
+  // console.log(component.blogs)
   expect(component.blogs.length).toBeGreaterThan(0);
   });
 

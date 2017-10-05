@@ -19,7 +19,7 @@ export class CrudListComponent implements OnInit {
   populateForm(id:String, index:number){
     let blogs = this.blogsService.returnBlogs()
     // console.log(index)
-    blogs.map((blog:Blog)=>{
+  blogs.map((blog:Blog)=>{
      blog._id === id ? this.blogsService.populateForm.next({blog:blog, index:index}) : blog._id = blog._id;
 
    })

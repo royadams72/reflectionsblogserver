@@ -23,15 +23,17 @@ export class BlogsService {
 
 
    returnBlogs(){
+     console.log("fired")
      return this.blogs;
    }
    getBlogs(){
             return this._http.get(this.blogsURL+'blogs')
                    .map((result: Response ) => {
-                      this.blogs  = result['blogs'].reverse();
+                      this.blogs  = result['blogs'];
+                        // this.blogs  = result['blogs'].reverse();
                     // let b  = result['blogs'];
                     // this.blogs = b.reverse()
-                    console.log(this.blogs);
+                    // console.log(this.blogs);
                     return this.blogs;
                    })
 
