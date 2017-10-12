@@ -50,9 +50,6 @@ export class BlogsService {
              .map((res: Response ) => {
                if(res){
                   this.blogs.splice(index, 1, blog);
-                  // let b  = this.blogs;
-                  // this.blogs = b.reverse()
-                  // console.log(this.blogs);
                   return blog;
               }
              })
