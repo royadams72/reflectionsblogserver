@@ -66,18 +66,7 @@ describe('CrudListComponent', () => {
       let spy =  spyOn(blogsService, 'returnBlogs').and.returnValue(blogs);
       // expect(component.populateForm).toHaveBeenCalled();
       component.populateForm('xyz', 1)
-        // spyOn(BlogsService, 'returnBlogs');
-        // console.log(spyOn(blogsService, 'returnBlogs'))
-
-        // let spy = spyOn(blogsService, 'returnBlogs').and.callFake(()=>{
-          // blogs = [{_id1: 'xyz', title: 'title1', vidUrl: 'XpiipWULkXk'}, {_id1: 'abc', title: 'title2', vidUrl: 'XpiipWULkXk'}]
-
-        //   blogs.map((blog)=>{
-         //
-        //    blog._id === id ? this.blogsService.populateForm.next({blog:blog, index:index}) : blog._id = blog._id;
-         //
-        //  })
-        // })
+    
         fixture.detectChanges();
           // expect(spy).toHaveBeenCalled();
         // console.log(blogsService.returnBlogs.calls.any())
