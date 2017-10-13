@@ -66,12 +66,8 @@ describe('CrudListComponent', () => {
       let spy =  spyOn(blogsService, 'returnBlogs').and.returnValue(blogs);
       // expect(component.populateForm).toHaveBeenCalled();
       component.populateForm('xyz', 1)
-    
+
         fixture.detectChanges();
-          // expect(spy).toHaveBeenCalled();
-        // console.log(blogsService.returnBlogs.calls.any())
-
-
-        // expect(component.populateForm).toHaveBeenCalledWith('xyz', 1);
+  
   });
 });

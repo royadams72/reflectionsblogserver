@@ -19,3 +19,44 @@
 .blog-thumb{
   cursor: pointer;
 }
+
+.crop{
+    float:left;
+     margin:.1em 0 .1em 0;
+     overflow:hidden;
+     border:0px solid #ccc;
+  }
+       /* input values to crop the image */
+   .crop img{
+       margin:-70px -0px -70px 0px;
+       width: 100%;
+       height: auto;
+   }
+   .card-block{
+     padding-left: 0!important;
+     padding-right: 0!important;
+   }
+   @media only screen and (max-width : 1600px) {
+     .crop img{
+        margin:-50px -0px -50px 0px;
+      }
+   }
+   @media only screen and (max-width : 1150px) {
+     .crop img{
+        margin:-30px -0px -30px 0px;
+      }
+   }
+   @media only screen and (max-width : 776px) {
+     .crop img{
+        margin:-35px -0px -35px 0px;
+      }
+   }
+   @media only screen and (max-width : 570px) {
+     .crop img{
+        margin:-50px -0px -50px 0px;
+      }
+   }
+
+   /*@media only screen and (min-width : 1200px) {
+     .bg-image { height: 400px; }
+   }*/

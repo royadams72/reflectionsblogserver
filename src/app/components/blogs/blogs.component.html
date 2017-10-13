@@ -5,6 +5,7 @@
         <div class="row" >
         <div class="col-sm-6 col-md-4 card" *ngFor="let blog of blogs">
           <!-- <div class="card" style="width: 20rem;">   [ngStyle]="blog?.vidUrl" -->
+          <!-- <div class="crop"><a href="#" title=""><img src="http://img.youtube.com/vi/JnxwbY07jmY/0.jpg"/></a></div> -->
           <div class="crop" >
             <a [routerLink]="['/blog', blog._id]">
               <img class="bg-cover" src="http://img.youtube.com/vi/{{blog?.vidUrl}}/0.jpg" alt="" >
