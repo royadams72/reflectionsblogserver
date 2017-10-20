@@ -23,7 +23,7 @@ export class BlogsService {
 
 
  returnBlogs(){
-   console.log("fired")
+  //  console.log("fired")
    return this.blogs;
  }
   getBlogs(){
@@ -31,13 +31,14 @@ export class BlogsService {
            .map((res: Response ) => {
 
               this.blogs  = res['blogs'];
+              // console.log(this.blogs)
             return this.blogs;
            })
     }
     getBlog(id){
       return this._http.get(this.blogsURL+'blogs/'+id)
              .map((res: Response ) => {
-               console.log(res)
+              //  console.log(res)
               return res["blog"];
              })
     }

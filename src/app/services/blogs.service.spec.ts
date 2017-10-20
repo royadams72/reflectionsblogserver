@@ -34,15 +34,13 @@ describe('BlogsService', () => {
  });
 
  it('#getBlogs should return data',() => {
-
-
    service
        .getBlogs()
        .subscribe(results => {
          expect(results).toBeDefined();
-         //blogs has to be 2 things, the actual namr of the object returned by the server
-        //And what is returned by the function
+         //has to be what is returned by the function
          expect(results).toEqual(blogs);
+         console.log(results)
 
        });
      // look up our request and access it
@@ -50,7 +48,7 @@ describe('BlogsService', () => {
      // verify it is a GET
      expect(request.request.method).toEqual('GET');
 
-     request.flush({message:"Success", blogs});
+     request.flush({message:"Success", blogs:blogs});
     //  // make sure it actually got processed...
      httpMock.verify();
    });
@@ -61,8 +59,7 @@ describe('BlogsService', () => {
          .getBlog(_id)
          .subscribe(results => {
            expect(results).toBeDefined();
-           //blogs has to be 2 things, the actual namr of the object returned by the server
-          //And what is returned by the function
+           //has to be what is returned by the function
            expect(results).toEqual(blog);
 
          });
@@ -79,10 +76,6 @@ describe('BlogsService', () => {
 it('#updateBlog should return single blog and update frontend from array',() => {
   // let blog:Blog = {_id: '1234',title: 'title1', vidUrl: 'XpiipWULkXk', script:'Some test script1'};
   let index = 0;
-  //Attach mock blogs array to this service instance, the updateBlogs function splices from an array
-  //without this the test fails
-
-  // console.log(service.blogs[0])
   service
       .updateBlog(blog, index)
       .subscribe(results => {
