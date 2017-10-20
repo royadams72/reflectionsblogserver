@@ -22,27 +22,24 @@ export class BlogsService {
    }
 
 
-   returnBlogs(){
-     console.log("fired")
-     return this.blogs;
-   }
-   getBlogs(){
-            return this._http.get(this.blogsURL+'blogs')
-                   .map((result: Response ) => {
-                      this.blogs  = result['blogs'];
-                        // this.blogs  = result['blogs'].reverse();
-                    // let b  = result['blogs'];
-                    // this.blogs = b.reverse()
-                    // console.log(this.blogs);
-                    return this.blogs;
-                   })
+ returnBlogs(){
+   console.log("fired")
+   return this.blogs;
+ }
+  getBlogs(){
+    return this._http.get(this.blogsURL+'blogs')
+           .map((res: Response ) => {
 
+              this.blogs  = res['blogs'];
+            return this.blogs;
+           })
     }
     getBlog(id){
-        return this._http.get(this.blogsURL+'blogs/'+id)
-               .map((res: Response ) => {
-                return res["blog"];
-               })
+      return this._http.get(this.blogsURL+'blogs/'+id)
+             .map((res: Response ) => {
+               console.log(res)
+              return res["blog"];
+             })
     }
 
     updateBlog(blog:Blog, index:number){
@@ -59,21 +56,22 @@ export class BlogsService {
       return this._http.post(this.blogsURL+'blogs', blog)
              .map((res: Response ) => {
               let blog = res['blog'];
-              this.blogs.push(blog)
-
+              this.blogs.push(blog);
               return blog;
              })//map automatic
     }
 
     deleteBlog(blog:Blog){
-      console.log( blog._id)
+      // console.log(blog._id)
         return this._http.delete(this.blogsURL+'blogs' + "/" +blog._id)
                .map((res: Response ) => {
+                 if(res){
                  const result = res;
                   this.blogs.splice(this.blogs.indexOf(blog), 1);//delete from front end
-                  console.log(result)
+                  // console.log(result)
                  return result;
-               })//map automatically turns response to an Observable
+               }
+          })//map automatically turns response to an Observable
 
           //But have to throw/ cast to an Observable with catch
 

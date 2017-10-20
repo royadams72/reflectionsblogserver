@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input} from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { BlogsService } from '../../services/blogs.service';
 import { Blog } from '../../models/blog';
-
+import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-blogform',
   templateUrl: './blogform.component.html',
@@ -15,7 +15,8 @@ export class BlogFormComponent implements OnInit {
   public success:boolean;
   private successMsg:String;
   public _id:String;
-  // private blog:Blog;
+  // private
+  private connArray:Array<Subscription> = [];
   private index:number;
   constructor(private blogsService: BlogsService) {
                   this.state = 'CREATING';
@@ -25,7 +26,7 @@ export class BlogFormComponent implements OnInit {
    }
   ngOnInit() {
     this.initForm();
-    this.blogsService.populateForm
+    let conn = this.blogsService.populateForm
     .subscribe((data)=>{
       if(data){
         this.state = 'UPDATING';
@@ -38,7 +39,7 @@ export class BlogFormComponent implements OnInit {
           index: data.index
           });
       }
-        // console.log(blog)
+        this.connArray.push(conn);
 
     })
   }
@@ -61,11 +62,11 @@ export class BlogFormComponent implements OnInit {
     let script = form.get('script');
     let _id = form.get('_id');
     let index = form.get('index').value;
-
+    let conn:Subscription;
     // action === 'CREATING' ? vidID = null : vidID = this._id;
     let blog:Blog = {_id:_id.value, title:title.value, vidUrl:vidUrl.value, script:script.value}
     if(action === 'CREATING'){
-      this.blogsService.addBlog(blog)
+      conn = this.blogsService.addBlog(blog)
         .subscribe(data=>{
           if(data){
             this.success = true;
@@ -74,7 +75,7 @@ export class BlogFormComponent implements OnInit {
         })
     }else if(action === 'UPDATING'){
       // console.log(blog)
-      this.blogsService.updateBlog(blog, index)
+      conn = this.blogsService.updateBlog(blog, index)
         .subscribe(data=>{
           if(data){
             this.success = true;
@@ -82,7 +83,7 @@ export class BlogFormComponent implements OnInit {
           }
         })
     }else{
-      this.blogsService.deleteBlog(blog)
+      conn = this.blogsService.deleteBlog(blog)
         .subscribe(data=>{
           if(data){
             this.success = true;
@@ -90,11 +91,15 @@ export class BlogFormComponent implements OnInit {
           }
         })
     }
+    this.connArray.push(conn);
     form.reset();
     this.state = 'CREATING';
   }
   ngOnDestroy(){
-    // this.blogsService.addBlog.unsubscrbe();
+    this.connArray.map((conn)=>{
+      conn.unsubscribe();
+    })
+    // this.
   }
 
 }

@@ -53,11 +53,11 @@ describe('CrudListComponent', () => {
         expect(component.populateForm).toHaveBeenCalledWith('xyz', 1);
         // fixture.detectChanges();
         blogsService.returnBlogs()
-        console.log(blogsService.returnBlogs())
+        // console.log(blogsService.returnBlogs())
         expect(blogsService.returnBlogs).toHaveBeenCalled();
   });
 
-  xit('PopulateForm should return current blog array', () => {
+  it('PopulateForm should return current blog array', () => {
          blogsService = TestBed.get(BlogsService)
          let blogs = [{_id1: 'xyz', title: 'title1', vidUrl: 'XpiipWULkXk'}, {_id1: 'abc', title: 'title2', vidUrl: 'XpiipWULkXk'}]
          let id = 'xyz'
@@ -68,6 +68,6 @@ describe('CrudListComponent', () => {
       component.populateForm('xyz', 1)
 
         fixture.detectChanges();
-  
+
   });
 });
