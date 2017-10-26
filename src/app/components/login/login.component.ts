@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { BlogsService } from '../../services/blogs.service';
 import { Subscription } from 'rxjs/Subscription';
+
+import { BlogsService } from '../../services/blogs.service';
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class LoginComponent implements OnInit {
 public loginForm:FormGroup;
-  constructor(private blogsService:BlogsService) { }
+  constructor(private blogsService:BlogsService, private authService:AuthService) { }
 
   ngOnInit() {
       this.initForm();
@@ -27,7 +30,7 @@ public loginForm:FormGroup;
     let email = form.get('email');
     let password = form.get('password');
     let conn:Subscription;
-        conn = this.blogsService.login(email.value, password.value)
+        conn = this.authService.login(email.value, password.value)
         .subscribe((data)=>{
           console.log(data)
         },
