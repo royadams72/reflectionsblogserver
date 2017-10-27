@@ -44,7 +44,7 @@ export class BlogsService {
   }
 
   updateBlog(blog: Blog, index: number) {
-    return this.http.patch(this.blogsURL + 'blogs', blog)
+    return this.http.patch(this.blogsURL + 'blogs/edit', blog)
       .map((res: Response) => {
         if (res) {
           this.blogs.splice(index, 1, blog);
@@ -54,7 +54,7 @@ export class BlogsService {
   }
 
   addBlog(blog: Blog) {
-    return this.http.post(this.blogsURL + 'blogs', blog)
+    return this.http.post(this.blogsURL + 'blogs/edit', blog)
       .map((res: Response) => {
         let blog = res['blog'];
         this.blogs.push(blog);
@@ -64,7 +64,7 @@ export class BlogsService {
 
   deleteBlog(blog: Blog) {
     // console.log(blog._id)
-    return this.http.delete(this.blogsURL + 'blogs' + "/" + blog._id)
+    return this.http.delete(this.blogsURL + 'blogs/edit' + "/" + blog._id)
       .map((res: Response) => {
         if (res) {
           const result = res;

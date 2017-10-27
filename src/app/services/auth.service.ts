@@ -16,7 +16,7 @@ export class AuthService {
 
   public login(email, password) {
     // console.log(blog._id)
-    return this.http.post(this.blogsURL + 'blogs/login', { email, password })
+    return this.http.post(this.blogsURL + 'login', { email, password })
       //  .toPromise()
       .do((res: Response) => {
         if (res) {
