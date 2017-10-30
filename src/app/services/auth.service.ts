@@ -10,8 +10,8 @@ import * as moment from 'moment';
 export class AuthService {
   blogsURL: string;
   constructor(private http: HttpClient) {
-    // this.blogsURL = 'https://reflections-blog.herokuapp.com/'
-    this.blogsURL = 'http://localhost:3000/'
+    this.blogsURL = 'https://reflections-blog.herokuapp.com/'
+    // this.blogsURL = 'http://localhost:3000/'
   }
 
   public login(email, password) {
