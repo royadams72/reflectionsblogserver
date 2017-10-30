@@ -1,102 +1,110 @@
 var express = require('express');
 var router = express.Router();
+var expressJwt = require('express-jwt');
+var fs = require('fs');
+
 var Blog = require('../models/blog');
 
 //route: middleware applied to a request (middleware acts as a bridge between application and database)
-//With Nodejs http methods; get post, patch delete
-router.get('/', function (req, res, next) {
-  //Create an new instance of User object
-    // var user = new User({firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10)});
-    Blog.find()
-    .exec(function(err, response){
-      if(err){
+const RSA_PUBLIC_KEY = fs.readFileSync('./jwtRS256.key.pub');
+const checkIfAuthenticated = expressJwt({
+  secret: RSA_PUBLIC_KEY
+});
+
+router.use('/', function(req, res, next) {
+  // console.log(req.headers.get("Authorization"));
+
+  console.log(RSA_PUBLIC_KEY);
+  if (checkIfAuthenticated) {
+    return res.status(401).json({
+      title: 'Not Authorised',
+      error: 'You are not authorised'
+    });
+  }
+
+})
+router.get('/', function(req, res, next) {
+  //Create an new instance of Blog object
+  Blog.find()
+    .exec(function(err, response) {
+      if (err) {
         return res.status(500).json({
           title: 'An error has occured',
           error: err
-        })
+        });
       }
-    //console.log(messages)
+      //console.log(messages)
       res.status(201).json({
         message: 'Success',
         blogs: response
-      })
-    })
-})
+      });
+    });
+});
 
-router.get('/:id', function (req, res, next) {
-
-console.log(req.params.id)
-var id = req.params.id;
-  Blog.findById(id, function (err, response) {
-    if(err){
+router.get('/:id', function(req, res, next) {
+  var id = req.params.id;
+  Blog.findById(id, function(err, response) {
+    if (err) {
       return res.status(500).json({
         title: 'An error has occured',
         error: err
-      })
+      });
     }
     res.status(201).json({
       message: 'Success',
       blog: response
-    })
-  })
+    });
+  });
+});
 
-})
-
-
-router.post('/', function (req, res, next) {
+router.post('/edit', function(req, res, next) {
   //Create an new instance of User object
-    // var user = new User({firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10)});
-    var blog = new Blog({
-      title: req.body.title,
-      script: req.body.script,
-       vidUrl:req.body.vidUrl
-    })
+  var blog = new Blog({
+    title: req.body.title,
+    script: req.body.script,
+    vidUrl: req.body.vidUrl
+  });
 
-    blog.save(function(err, result){
-          if(err){
-            return res.status(500).json({
-              title: 'An error has occured',
-              error: err
-            })
-          }
-          res.status(201).json({
-            message: 'Everything ok',
-            obj: result
-          })
-    })
-})
+  blog.save(function(err, result) {
+    if (err) {
+      return res.status(500).json({
+        title: 'An error has occured',
+        error: err
+      });
+    }
+    res.status(201).json({
+      message: 'Everything ok',
+      obj: result
+    });
+  });
+});
 
 
-router.patch('/', function (req, res, next) {
-  //Create an new instance of User object
-    // var user = new User({firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10)});
+router.patch('/edit', function(req, res, next) {
+  var id = req.body._id;
+  Blog.findById(id, function(err, blog) {
+    if (err) {
+      return res.status(500).json({
+        title: 'An error has occured',
+        error: err
+      });
+    }
 
-    var id = req.body._id
-
-    Blog.findById(id, function (err, blog) {
-      if(err){
+    blog.title = req.body.title;
+    blog.script = req.body.script;
+    blog.vidUrl = req.body.vidUrl;
+    blog.save(function(err, result) {
+      if (err) {
         return res.status(500).json({
           title: 'An error has occured',
           error: err
-        })
+        });
       }
-
-  blog.title = req.body.title;
-  blog.script = req.body.script;
-  blog.vidUrl = req.body.vidUrl;
-
-    blog.save(function(err, result){
-            if(err){
-              return res.status(500).json({
-                title: 'An error has occured',
-                error: err
-              })
-            }
-            res.status(201).json({
-              message: 'Everything ok',
-              obj: result
-            })
-      })
-  })
-})
+      res.status(201).json({
+        message: 'Everything ok',
+        obj: result
+      });
+    });
+  });
+});
 module.exports = router;

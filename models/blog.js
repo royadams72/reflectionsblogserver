@@ -1,7 +1,4 @@
-var mongoose = require('mongoose')
-
-//mongoose schemas work with server side js to define data structures
-//and methods to interact with your data store.
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
@@ -10,4 +7,4 @@ var schema = new Schema({
   vidUrl: {type: String, required:true}
 });
 //export schema
-module.exports = mongoose.model('Blog', schema);//Will export as message
+module.exports = mongoose.model('Blog', schema);
