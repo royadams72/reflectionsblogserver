@@ -11,7 +11,7 @@ const checkIfAuthenticated = expressJwt({
   secret: RSA_PUBLIC_KEY
 });
 
-router.use('/', function(req, res, next) {
+router.use('/blogs', function(req, res, next) {
   // console.log(req.headers.get("Authorization"));
 
   console.log(RSA_PUBLIC_KEY);
