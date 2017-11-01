@@ -16,19 +16,10 @@ export class TokenInterceptor implements HttpInterceptor {
         headers: req.headers.set("Authorization",
           "Bearer " + idToken)
       });
-      // console.log(cloned.headers.get("Authorization"))
       return next.handle(cloned);
     }
     else {
-      return next.handle(req).do((event: any) => {
-        if (event instanceof HttpResponse) {
-          const elapsed = Date.now();
-          console.log(`Request for ${req.urlWithParams} took ${elapsed} ms.`);
-        }
-      }).catch(error => {
-
-        return Observable.throw(error);
-      })
+      return next.handle(req);
     }
   }
 }
