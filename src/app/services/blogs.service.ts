@@ -13,12 +13,13 @@ export class BlogsService {
   public populateList;
   public populateForm;
   public blogs: Blog[];
-  //
+
   constructor(private http: HttpClient) {
-    this.blogsURL = 'https://reflections-blog.herokuapp.com/'
-    // this.blogsURL = 'http://localhost:3000/'
+    // this.blogsURL = 'https://reflections-blog.herokuapp.com/'
+    this.blogsURL = 'http://localhost:3000/'
     this.populateList = new Subject<Blog[]>();
     this.populateForm = new Subject<Blog>();
+
   }
 
 

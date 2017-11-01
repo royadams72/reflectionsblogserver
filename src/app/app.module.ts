@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { routing } from './app.routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 import { AppComponent } from './app.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
@@ -17,7 +17,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TokenInterceptor } from './services/token.interceptor';
 import { BlogsService } from './services/blogs.service';
 import { AuthService } from './services/auth.service';
-
+import { IsloggedinGuard } from './routing/isloggedin.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +39,7 @@ import { AuthService } from './services/auth.service';
   providers: [
     BlogsService,
     AuthService,
+    IsloggedinGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
