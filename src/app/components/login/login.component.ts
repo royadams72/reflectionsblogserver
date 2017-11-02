@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
+
 import { BlogsService } from '../../services/blogs.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -12,7 +13,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
-  constructor(private blogsService: BlogsService, private authService: AuthService) { }
+  constructor(private blogsService: BlogsService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.initForm();
@@ -31,12 +33,8 @@ export class LoginComponent implements OnInit {
     let password = form.get('password');
     let conn: Subscription;
     conn = this.authService.login(email.value, password.value)
-      .subscribe((data) => {
-        // console.log(data)
-      },
+      .subscribe((data) => { },
       err => {
-        //  console.log(err.error.error.message);
-
         if (err.error instanceof Error) {
           // A client-side or network error occurred. Handle it accordingly.
           console.log('An error occurred:', err.error);
@@ -46,10 +44,7 @@ export class LoginComponent implements OnInit {
           console.log(err)
           console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
         }
-
-      }
-
-      )
+      })
     // console.log(email.value, password.value)
 
   }

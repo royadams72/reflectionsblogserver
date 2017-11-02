@@ -9,9 +9,8 @@ import { AppComponent } from './app.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
 import { NavComponent } from './components/nav/nav.component';
 import { BlogpageComponent } from './components/blogpage/blogpage.component';
-import { CrudBlogComponent } from './components/crud-blog/crud-blog.component';
-import { BlogFormComponent } from './components/blogform/blogform.component';
-import { CrudListComponent } from './components/crud-list/crud-list.component';
+// import { CrudBlogComponent } from './components/crud-blog/crud-blog.component';
+// import { CrudModule } from './components/crud-blog/crud.module';
 import { LoginComponent } from './components/login/login.component';
 
 import { TokenInterceptor } from './services/token.interceptor';
@@ -24,9 +23,6 @@ import { IsloggedinGuard } from './routing/isloggedin.guard';
     BlogsComponent,
     NavComponent,
     BlogpageComponent,
-    CrudBlogComponent,
-    BlogFormComponent,
-    CrudListComponent,
     LoginComponent
   ],
   imports: [
