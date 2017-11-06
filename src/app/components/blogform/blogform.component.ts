@@ -1,9 +1,13 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { BlogsService } from '../../services/blogs.service';
-import { Blog } from '../../models/blog';
 import { Subscription } from 'rxjs/Subscription';
+
+import { BlogsService } from '../../services/blogs.service';
+import { ErrorService } from '../errors/error.service';
+import { Blog } from '../../models/blog';
+
+
 @Component({
   selector: 'app-blogform',
   templateUrl: './blogform.component.html',
@@ -16,14 +20,13 @@ export class BlogFormComponent implements OnInit {
   public success: boolean;
   private successMsg: String;
   public _id: String;
-  // private
   private connArray: Array<Subscription> = [];
   private index: number;
-  constructor(private blogsService: BlogsService) {
+  constructor(private blogsService: BlogsService,
+    private errorService: ErrorService) {
     this.state = 'CREATING';
     this.formValid = false;
     this.success = false;
-    // this._id = '';
   }
   ngOnInit() {
     this.initForm();
@@ -56,6 +59,7 @@ export class BlogFormComponent implements OnInit {
     // this.addItemFields();
   }
 
+
   onSubmitForm(action) {
     let form = this.crudBlogForm
     let title = form.get('title');
@@ -73,7 +77,10 @@ export class BlogFormComponent implements OnInit {
             this.success = true;
             this.successMsg = "Your Blog has been uploaded";
           }
-        })
+        },
+        (err: HttpErrorResponse) => {
+          this.errorService.handleError(err);
+        });
     } else if (action === 'UPDATING') {
       // console.log(blog)
       conn = this.blogsService.updateBlog(blog, index)
@@ -84,23 +91,20 @@ export class BlogFormComponent implements OnInit {
           }
         },
         (err: HttpErrorResponse) => {
-          if (err.error instanceof Error) {
-            // A client-side or network error occurred. Handle it accordingly.
-            console.log('An error occurred:', err.message);
-          } else {
-            console.log(err);
-            console.log(`Backend returned code ${err.status}, body was: ${err.message}`);
-          }
-        }
-        )
-    } else {
-      conn = this.blogsService.deleteBlog(blog)
+          this.errorService.handleError(err);
+        });
+    } else if (action === 'DELETING') {
+      // console.log(blog)
+      conn = this.blogsService.deleteBlog(blog, index)
         .subscribe(data => {
           if (data) {
             this.success = true;
             this.successMsg = "Your Blog has been deleted";
           }
-        })
+        },
+        (err: HttpErrorResponse) => {
+          this.errorService.handleError(err);
+        });
     }
     this.connArray.push(conn);
     form.reset();

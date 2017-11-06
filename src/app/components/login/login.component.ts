@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -11,10 +11,10 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
-  constructor(private blogsService: BlogsService,
-    private authService: AuthService) { }
+  private conn: Subscription;
+  constructor(private blogsService: BlogsService, private authService: AuthService) { }
 
   ngOnInit() {
     this.initForm();
@@ -31,8 +31,7 @@ export class LoginComponent implements OnInit {
     let form = this.loginForm
     let email = form.get('email');
     let password = form.get('password');
-    let conn: Subscription;
-    conn = this.authService.login(email.value, password.value)
+    this.conn = this.authService.login(email.value, password.value)
       .subscribe((data) => { },
       err => {
         if (err.error instanceof Error) {
@@ -45,7 +44,9 @@ export class LoginComponent implements OnInit {
           console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
         }
       })
-    // console.log(email.value, password.value)
+  }
 
+  ngOnDestroy() {
+    this.conn.unsubscribe();
   }
 }

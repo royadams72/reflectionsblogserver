@@ -43,28 +43,34 @@ export class BlogsService {
     return this.http.patch(this.blogsURL + 'blogs/edit', blog)
       .map((res: Response) => {
         if (res) {
+          // console.log(res)
           this.blogs.splice(index, 1, blog);
           return blog;
         }
       })
   }
 
-  addBlog(blog: Blog) {
+  addBlog(blog: Blog): Observable<Blog> {
     return this.http.post(this.blogsURL + 'blogs/edit', blog)
       .map((res: Response) => {
         let blog = res['blog'];
+        console.log(res)
         this.blogs.push(blog);
+
         return blog;
       })//map automatic
   }
 
-  deleteBlog(blog: Blog) {
-    return this.http.delete(this.blogsURL + 'blogs/edit' + "/" + blog._id)
+  deleteBlog(blog: Blog, index: number) {
+    // console.log(blog)
+    let id = blog._id
+    return this.http.delete(this.blogsURL + 'blogs/edit/' + id)
       .map((res: Response) => {
         if (res) {
           const result = res;
           this.blogs.splice(this.blogs.indexOf(blog), 1);//delete from front end
-          // console.log(result)
+          console.log(result);
+          console.log(this.blogs);
           return result;
         }
       })
