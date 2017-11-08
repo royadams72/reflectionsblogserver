@@ -11,42 +11,16 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   private conn: Subscription;
   constructor(private blogsService: BlogsService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.initForm();
-  }
-  private initForm() {
-    // let items = [];
-    this.loginForm = new FormGroup({
-      'email': new FormControl(null, [Validators.required, Validators.email]),
-      'password': new FormControl(null, Validators.compose([Validators.required, Validators.minLength(1)]))
-    });
-    // this.addItemFields();
-  }
-  onSubmitForm() {
-    let form = this.loginForm
-    let email = form.get('email');
-    let password = form.get('password');
-    this.conn = this.authService.login(email.value, password.value)
-      .subscribe((data) => { },
-      err => {
-        if (err.error instanceof Error) {
-          // A client-side or network error occurred. Handle it accordingly.
-          console.log('An error occurred:', err.error);
-        } else {
-          // The backend returned an unsuccessful response code.
-          // The response body may contain clues as to what went wrong,
-          console.log(err)
-          console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
-        }
-      })
+
+    this.authService.login();
   }
 
-  ngOnDestroy() {
-    this.conn.unsubscribe();
-  }
+
+
 }

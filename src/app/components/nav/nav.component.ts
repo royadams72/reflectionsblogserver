@@ -13,7 +13,7 @@ export class NavComponent implements OnInit {
     private alertService: AlertService) { }
 
   ngOnInit() {
-    this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.isLoggedIn$ = this.authService.loggedIn$;
   }
 
   public confirmLogout() {
