@@ -4,22 +4,34 @@ var expressJwt = require('express-jwt');
 var fs = require('fs');
 var app = express();
 var Blog = require('../models/blog');
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 
-//route: middleware applied to a request (middleware acts as a bridge between application and database)
-const RSA_PUBLIC_KEY = fs.readFileSync('./jwtRS256.key.pub');
-const checkIfAuthenticated = expressJwt({
-  secret: RSA_PUBLIC_KEY
+const authCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: "https://royadams.eu.auth0.com/.well-known/jwks.json"
+  }),
+  // This is the identifier we set when we created the API
+  aud: 'https://royadams.eu.auth0.com/api/v2/',
+  iss: "https://royadams.eu.auth0.com",
+  alg: ['RS256']
 });
 
-router.use('/edit', checkIfAuthenticated);
+// For the private route, we'll add this authCheck middleware
+router.use('/edit', authCheck)
+
 router.use(function(err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
-    console.log(err.message);
+    console.log(err.message, err.status);
     return res.status(err.status).send({
       title: 'An error has occured',
       statusText: err.message
     });
   }
+  console.log("all good");
   next();
 });
 router.get('/', function(req, res, next) {
